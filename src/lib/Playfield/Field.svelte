@@ -3,18 +3,17 @@
   import XMark from "./marks/XMark.svelte";
 
   export let coordinates: { x: number; y: number };
-  export let setOwner: (any) => void;
+  export let onFieldClick: (any) => void;
   export let owner = "";
 
   $: fontColor = owner === "o" ? "#E59500" : "#D65780";
 
   const clickHandler = () => {
-    setOwner(coordinates);
-    console.log("clicked");
+    onFieldClick(coordinates);
   };
 </script>
 
-<div on:click|once={clickHandler} style={`color: ${fontColor};`}>
+<div on:click={clickHandler} style={`color: ${fontColor};`}>
   {#if owner === "o"}
     <CircleMark color={fontColor} />
   {:else if owner === "x"}

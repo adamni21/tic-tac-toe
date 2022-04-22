@@ -1,18 +1,20 @@
 <script lang="ts">
-  import type { FieldOwner, Player } from "./types";
-  import getSquareArray from "../../utils/getSquareArray";
+  // import type { FieldOwner, Player } from "./types";
+  // import getSquareArray from "../../utils/getSquareArray";
+  import { ticTacToeGame } from "../../utils/GameApi";
 
   import Field from "./Field.svelte";
 
   const PlayfieldSize = 3;
 
-  let GameState: FieldOwner[][] = getSquareArray(PlayfieldSize, "");
-  let currentPlayer: Player = "o";
+  const game = new ticTacToeGame(PlayfieldSize).startNewGame()
 
-  const setOwnerHandler = ({ x, y }) => {
-    GameState[x][y] = currentPlayer;
-    GameState = GameState;
-    currentPlayer = currentPlayer === "o" ? "x" : "o";
+  let gameState = game.currentState
+
+  const FieldClickHandler = ({ x, y }) => {
+    if (game.processClick({x,y})) {
+      gameState = game.currentState
+    }
   };
 </script>
 
@@ -21,12 +23,12 @@
   grid-template-columns: repeat(${PlayfieldSize}, 1fr);
   grid-template-rows: repeat(${PlayfieldSize}, 1fr);`}
 >
-  {#each GameState as row, rowIndex (rowIndex)}
+  {#each gameState as row, rowIndex (rowIndex)}
     {#each row as column, colIndex (colIndex)}
       <Field
         coordinates={{ x: rowIndex, y: colIndex }}
         owner={column}
-        setOwner={setOwnerHandler}
+        onFieldClick={FieldClickHandler}
       />
     {/each}
   {/each}
