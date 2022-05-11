@@ -1,6 +1,6 @@
 <script lang="ts">
-  import CircleMark from "./marks/CircleMark.svelte";
-  import XMark from "./marks/XMark.svelte";
+  import CircleMark from "../marks/CircleMark.svelte";
+  import XMark from "../marks/XMark.svelte";
 
   export let coordinates: { x: number; y: number };
   export let onFieldClick: (any) => void;

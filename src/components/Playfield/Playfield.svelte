@@ -1,21 +1,10 @@
 <script lang="ts">
-  // import type { FieldOwner, Player } from "./types";
-  // import getSquareArray from "../../utils/getSquareArray";
-  import { ticTacToeGame } from "../../utils/GameApi";
-
+  import type { Coordinates, FieldOwner } from "./types";
   import Field from "./Field.svelte";
-
-  const PlayfieldSize = 3;
-
-  const game = new ticTacToeGame(PlayfieldSize).startNewGame()
-
-  let gameState = game.currentState
-
-  const FieldClickHandler = ({ x, y }) => {
-    if (game.processClick({x,y})) {
-      gameState = game.currentState
-    }
-  };
+  import { ticTacToe } from "../../stores/ticTacToe";
+  export let PlayfieldSize: number;
+  export let gameState: FieldOwner[][];
+  export let onFieldClick: (coordinates: Coordinates) => void;
 </script>
 
 <div
@@ -28,7 +17,7 @@
       <Field
         coordinates={{ x: rowIndex, y: colIndex }}
         owner={column}
-        onFieldClick={FieldClickHandler}
+        {onFieldClick}
       />
     {/each}
   {/each}
