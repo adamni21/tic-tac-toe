@@ -26,7 +26,7 @@ export const hasWinner: HasWinner = (currentState) => {
   const lastIndex = size - 1;
   const diagonalOwners: FieldOwner[] = [
     currentState[0][0],
-    currentState[lastIndex][lastIndex],
+    currentState[0][lastIndex],
   ];
 
   currentState.forEach((row, colInd) => {
@@ -57,14 +57,14 @@ export const hasWinner: HasWinner = (currentState) => {
   columnOwners.forEach((owner) => {
     if (owner !== "") {
       winner = owner;
-      return;
     }
   });
   // checking for uniform diagonal
   diagonalOwners.forEach((owner) => {
     if (owner !== "") {
       winner = owner;
-      return;
+      
+      
     }
   });
   return winner;

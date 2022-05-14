@@ -30,8 +30,11 @@ function createTicTacToe() {
       game.moveCount++;
 
       const enoughMoves: Boolean = game.moveCount >= game.size * 2 - 1;
-      if (enoughMoves && hasWinner(game.currentState) !== "")
-        game.gameRunning = false;
+      if (enoughMoves) {
+        game.winner = hasWinner(game.currentState);
+        game.gameRunning = game.winner === "";
+        
+      }
 
       validMove = true;
       return game;
@@ -40,17 +43,17 @@ function createTicTacToe() {
     return validMove;
   };
 
-
   const startNewGame = (startingPlayer: Player = "x") => {
-    update(game => {
-      game.currentState = getSquareArray(game.size, "")
-      game.currentPlayer = startingPlayer
-      game.moveCount = 0
-      game.gameRunning = true
+    update((game) => {
+      game.currentState = getSquareArray(game.size, "");
+      game.currentPlayer = startingPlayer;
+      game.winner = "";
+      game.moveCount = 0;
+      game.gameRunning = true;
 
-      return game
-    })
-  }
+      return game;
+    });
+  };
 
   return { subscribe, processClick, startNewGame };
 }

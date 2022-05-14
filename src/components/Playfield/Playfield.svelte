@@ -2,22 +2,26 @@
   import type { Coordinates, FieldOwner } from "./types";
   import Field from "./Field.svelte";
   import { ticTacToe } from "../../stores/ticTacToe";
-  export let PlayfieldSize: number;
-  export let gameState: FieldOwner[][];
-  export let onFieldClick: (coordinates: Coordinates) => void;
+  import type { TicTacToeStore } from "../../stores/types";
+  import { onDestroy } from "svelte";
+
+  let game: TicTacToeStore;
+
+  const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
+
+  onDestroy(unsubscribe);
 </script>
 
 <div
   style={`
-  grid-template-columns: repeat(${PlayfieldSize}, 1fr);
-  grid-template-rows: repeat(${PlayfieldSize}, 1fr);`}
+  grid-template-columns: repeat(${game.size}, 1fr);
+  grid-template-rows: repeat(${game.size}, 1fr);`}
 >
-  {#each gameState as row, rowIndex (rowIndex)}
+  {#each game.currentState as row, rowIndex (rowIndex)}
     {#each row as column, colIndex (colIndex)}
       <Field
         coordinates={{ x: rowIndex, y: colIndex }}
         owner={column}
-        {onFieldClick}
       />
     {/each}
   {/each}

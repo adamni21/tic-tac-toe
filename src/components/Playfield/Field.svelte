@@ -2,14 +2,15 @@
   import CircleMark from "../marks/CircleMark.svelte";
   import XMark from "../marks/XMark.svelte";
 
+  import { ticTacToe } from "../../stores/ticTacToe";
+
   export let coordinates: { x: number; y: number };
-  export let onFieldClick: (any) => void;
   export let owner = "";
 
   $: fontColor = owner === "o" ? "#E59500" : "#D65780";
 
   const clickHandler = () => {
-    onFieldClick(coordinates);
+    ticTacToe.processClick(coordinates);
   };
 </script>
 
