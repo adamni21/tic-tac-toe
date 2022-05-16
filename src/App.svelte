@@ -1,16 +1,13 @@
 <script lang="ts">
-import { onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
 
   import Playfield from "./components/Playfield/Playfield.svelte";
   import { ticTacToe } from "./stores/ticTacToe";
   import type { TicTacToeStore } from "./stores/types";
 
   let game: TicTacToeStore;
-
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
-
-  onDestroy(unsubscribe)
-  
+  onDestroy(unsubscribe);
 </script>
 
 <body>
