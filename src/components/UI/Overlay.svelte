@@ -5,7 +5,7 @@
 </script>
 
 {#if isOpen}
-  <div class={"overlay " + className} on:click>
+  <div class={"overlay " + className} on:click|self>
     <slot />
   </div>
 {/if}

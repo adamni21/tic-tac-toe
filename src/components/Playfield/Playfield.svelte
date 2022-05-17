@@ -1,9 +1,12 @@
 <script lang="ts">
-  import type { Coordinates, FieldOwner } from "./types";
   import Field from "./Field.svelte";
   import { ticTacToe } from "../../stores/ticTacToe";
   import type { TicTacToeStore } from "../../stores/types";
   import { onDestroy } from "svelte";
+  import Settings from "./SettingsModal.svelte";
+import SettingsModal from "./SettingsModal.svelte";
+
+  let settingsOpen = true;
 
   let game: TicTacToeStore;
 
@@ -19,12 +22,10 @@
 >
   {#each game.currentState as row, rowIndex (rowIndex)}
     {#each row as column, colIndex (colIndex)}
-      <Field
-        coordinates={{ x: rowIndex, y: colIndex }}
-        owner={column}
-      />
+      <Field coordinates={{ x: rowIndex, y: colIndex }} owner={column} />
     {/each}
   {/each}
+  <SettingsModal bind:settingsOpen />
 </div>
 
 <style>

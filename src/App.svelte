@@ -24,13 +24,16 @@
 
 <style>
   :root {
+    color: blanchedalmond;
     background-color: #02040f;
+    box-sizing: border-box;
   }
   body {
     display: grid;
     justify-items: center;
   }
-  h2 {
-    color: blanchedalmond;
+
+  :global(.rnd-corners) {
+    border-radius: 15px;
   }
 </style>

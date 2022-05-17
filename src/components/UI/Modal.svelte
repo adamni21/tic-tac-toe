@@ -2,15 +2,21 @@
   import Overlay from "./Overlay.svelte";
 
   export let isOpen = false;
-  export let closeOnOverlayClick = true;
+  export let onOverlayClick: (() => any) | null | true = true;
+  ;
 
   const close = (condition = true) => {
     if (condition) isOpen = false;
   };
+  const overlayClickHandler = () => {
+    if(!onOverlayClick) return
+    if(onOverlayClick === true) close()
+    else onOverlayClick()
+  }
 </script>
 
 {#if isOpen}
-  <Overlay isOpen on:click={() => close(closeOnOverlayClick)}>
-    <slot close/>
+  <Overlay isOpen on:click={overlayClickHandler}>
+    <slot close={close} />
   </Overlay>
 {/if}
