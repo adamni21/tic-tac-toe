@@ -8,9 +8,9 @@ const init: TicTacToeStore = {
   size: 3,
   currentPlayer: "x",
   currentState: getSquareArray(3, ""),
-  gameRunning: false,
+  running: false,
   moveCount: 0,
-  winner: "",
+  winner: null,
 };
 
 function createTicTacToe() {
@@ -20,7 +20,7 @@ function createTicTacToe() {
     let validMove: Boolean;
 
     update((game) => {
-      if (game.currentState[x][y] !== "" || !game.gameRunning) {
+      if (game.currentState[x][y] !== "" || !game.running) {
         validMove = false;
         return game;
       }
@@ -32,7 +32,8 @@ function createTicTacToe() {
       const enoughMoves: Boolean = game.moveCount >= game.size * 2 - 1;
       if (enoughMoves) {
         game.winner = hasWinner(game.currentState);
-        game.gameRunning = game.winner === "";
+        if(game.moveCount === game.size**2 && game.winner === null) game.winner = "" 
+        game.running = game.winner === null;
         
       }
 
@@ -49,7 +50,7 @@ function createTicTacToe() {
       game.currentPlayer = startingPlayer;
       game.winner = "";
       game.moveCount = 0;
-      game.gameRunning = true;
+      game.running = true;
 
       return game;
     });
@@ -60,18 +61,18 @@ function createTicTacToe() {
 // const game = writable({
 //   size: 3,
 //   leastMovesToWin: 5, // size * 2 - 1
-//   gameRunning: false,
+//   running: false,
 //   winner: "",
 //   moveCount: 0,
 //   processClick: ({x,y}) => {
-//     if (this.currentState[x][y] !== "" || !this.gameRunning) return false;
+//     if (this.currentState[x][y] !== "" || !this.running) return false;
 
 //     this.currentState[x][y] = this.currentPlayer;
 //     this.currentPlayer = this.currentPlayer === "o" ? "x" : "o";
 //     this.moveCount++;
 
 //     if (this.moveCount >= this.leastMovesToWin && this.hasWinner() !== "")
-//       this.gameRunning = false;
+//       this.running = false;
 
 //     return true;
 //   }

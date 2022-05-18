@@ -6,10 +6,10 @@ import type {
 
 export interface TicTacToeStore {
   size: number;
-  gameRunning: boolean;
+  running: boolean;
   currentState: FieldOwner[][];
   currentPlayer: Player;
-  winner: FieldOwner;
+  winner?: FieldOwner;
   moveCount: number;
 }
 

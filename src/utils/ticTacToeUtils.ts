@@ -1,9 +1,6 @@
 import type {
-  Coordinates,
   FieldOwner,
-  Player,
 } from "src/components/Playfield/types";
-import getSquareArray from "./getSquareArray";
 
 // startNewGame(firstPlayer: Player = "x") {
 //   this.currentState = getSquareArray(this.size, "");
@@ -16,7 +13,7 @@ import getSquareArray from "./getSquareArray";
 //   return this;
 // }
 
-type HasWinner = (currentState: FieldOwner[][]) => FieldOwner;
+type HasWinner = (currentState: FieldOwner[][]) => (FieldOwner | null);
 
 export const hasWinner: HasWinner = (currentState) => {
   const size = currentState.length;
@@ -67,5 +64,5 @@ export const hasWinner: HasWinner = (currentState) => {
       
     }
   });
-  return winner;
+  return winner === "" ? null : winner;
 };
