@@ -3,8 +3,8 @@
   import { ticTacToe } from "../../stores/ticTacToe";
   import type { TicTacToeStore } from "../../stores/types";
   import { onDestroy } from "svelte";
-  import Settings from "./SettingsModal.svelte";
-import SettingsModal from "./SettingsModal.svelte";
+  import SettingsModal from "./SettingsModal.svelte";
+  import GameOverModal from "./GameOverModal.svelte";
 
   let settingsOpen = true;
 
@@ -26,6 +26,7 @@ import SettingsModal from "./SettingsModal.svelte";
     {/each}
   {/each}
   <SettingsModal bind:settingsOpen />
+  <GameOverModal />
 </div>
 
 <style>

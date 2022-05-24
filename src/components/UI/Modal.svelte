@@ -17,6 +17,6 @@
 
 {#if isOpen}
   <Overlay isOpen on:click={overlayClickHandler}>
-    <slot close={close} />
+    <slot />
   </Overlay>
 {/if}

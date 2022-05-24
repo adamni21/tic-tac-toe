@@ -48,7 +48,7 @@ function createTicTacToe() {
     update((game) => {
       game.currentState = getSquareArray(game.size, "");
       game.currentPlayer = startingPlayer;
-      game.winner = "";
+      game.winner = null;
       game.moveCount = 0;
       game.running = true;
 
@@ -58,24 +58,5 @@ function createTicTacToe() {
 
   return { subscribe, processClick, startNewGame };
 }
-// const game = writable({
-//   size: 3,
-//   leastMovesToWin: 5, // size * 2 - 1
-//   running: false,
-//   winner: "",
-//   moveCount: 0,
-//   processClick: ({x,y}) => {
-//     if (this.currentState[x][y] !== "" || !this.running) return false;
-
-//     this.currentState[x][y] = this.currentPlayer;
-//     this.currentPlayer = this.currentPlayer === "o" ? "x" : "o";
-//     this.moveCount++;
-
-//     if (this.moveCount >= this.leastMovesToWin && this.hasWinner() !== "")
-//       this.running = false;
-
-//     return true;
-//   }
-// })
 
 export const ticTacToe = createTicTacToe();

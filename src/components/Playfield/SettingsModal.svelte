@@ -49,6 +49,7 @@
 
 <style>
   .main {
+    text-align: center;
     height: fit-content;
     padding: 2em 1em;
     background-color: #02040f;

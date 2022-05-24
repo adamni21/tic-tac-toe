@@ -2,26 +2,20 @@
   import { onDestroy } from "svelte";
 
   import Playfield from "./components/Playfield/Playfield.svelte";
-  import type { FieldOwner } from "./components/Playfield/types";
   import { ticTacToe } from "./stores/ticTacToe";
+  import type { TicTacToeStore } from "./stores/types";
 
-  let winner: FieldOwner;
-  const unsubscribe = ticTacToe.subscribe(
-    (gameStore) => (winner = gameStore.winner)
-  );
+  let game: TicTacToeStore;
+  const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
   onDestroy(unsubscribe);
 </script>
 
 <body>
-  <h2>
-    {#if winner === null}
-      No winner yet
-    {:else if winner !== ""}
-      Player {winner} has won
-    {:else}
-      Draw
-    {/if}
-  </h2>
+  {#if game.winner === null && game.running}
+    <h2>
+      Player {game.currentPlayer}'s turn
+    </h2>
+  {/if}
   <Playfield />
 </body>
 
