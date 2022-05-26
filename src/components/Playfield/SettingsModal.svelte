@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ticTacToe } from "../../stores/ticTacToe";
+  import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
   import type { Player } from "./types";
 
@@ -42,7 +43,7 @@
       </fieldset>
     </div>
     <div class="actions">
-      <button class="startGame" on:click={startGameHandler}>Start Game</button>
+      <Button on:click={startGameHandler}>Start Game</Button>
     </div>
   </div>
 </Modal>
@@ -77,9 +78,5 @@
     grid-area: actions;
     display: flex;
     justify-content: flex-end;
-  }
-
-  .startGame {
-    margin-left: 0.8rem;
   }
 </style>

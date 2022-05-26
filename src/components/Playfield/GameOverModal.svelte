@@ -3,6 +3,7 @@
   import { onDestroy } from "svelte";
 
   import Modal from "../UI/Modal.svelte";
+import Button from "../UI/Button.svelte";
   let isOpen = false;
   let game;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
@@ -15,8 +16,14 @@
 
 <Modal bind:isOpen>
   <div class="main rnd-corners">
-    <h2 class="title">{game.winner === "" ? "Draw" : `Player ${game.winner} has won`}</h2>
-    <button on:click={startNewGameHandler}>Start new game</button>
+    <h2 class="title">
+      {#if game.winner === ""}
+        Draw
+      {:else}
+        Player <span class={game.winner}>{game.winner.toUpperCase()}</span> has won.
+      {/if}
+    </h2>
+    <Button on:click={startNewGameHandler}>Start new game</Button>
   </div>
 </Modal>
 
@@ -31,5 +38,11 @@
   .title {
     margin: 0;
     padding-bottom: 3rem;
+  }
+  .o {
+    color: var(--primary)
+  }
+  .x {
+    color: var(--secondary)
   }
 </style>

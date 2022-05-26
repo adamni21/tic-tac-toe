@@ -36,10 +36,10 @@
     box-sizing: border-box;
 
     --background: #010e12;
-    --on-background: #e2e4e6;
+    --on-background: #e4e2e6;
     --surface: #011529;
     --surface-variant: #002642;
-    --on-surface: #e2e4e6;
+    --on-surface: #e4e2e6;
     --primary: #eb9a0c;
     --primary-light: #ffb955;
     --primary-dark: #c98100;
