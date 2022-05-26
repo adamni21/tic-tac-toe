@@ -26,7 +26,7 @@
     height: fit-content;
     width: fit-content;
     padding: 2em 1em;
-    background-color: #02040f;
+    background-color: var(--background);
   }
   .title {
     margin: 0;

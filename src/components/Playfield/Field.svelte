@@ -7,18 +7,16 @@
   export let coordinates: { x: number; y: number };
   export let owner = "";
 
-  $: fontColor = owner === "o" ? "#E59500" : "#D65780";
-
   const clickHandler = () => {
     ticTacToe.processClick(coordinates);
   };
 </script>
 
-<div on:click={clickHandler} style={`color: ${fontColor};`}>
+<div class:circle={owner === "o"} on:click={clickHandler}>
   {#if owner === "o"}
-    <CircleMark color={fontColor} />
+    <CircleMark />
   {:else if owner === "x"}
-    <XMark color={fontColor} />
+    <XMark />
   {/if}
 </div>
 
@@ -26,11 +24,14 @@
   div {
     box-sizing: border-box;
     padding: 20%;
-    background-color: #002642;
-    font-weight: 900;
-    font-size: 2rem;
+    background-color: var(--surface-variant);
     display: grid;
     align-items: center;
     justify-items: center;
+
+    fill: var(--secondary);
+  }
+  .circle {
+    fill: var(--primary);
   }
 </style>

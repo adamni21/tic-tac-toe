@@ -52,7 +52,7 @@
     text-align: center;
     height: fit-content;
     padding: 2em 1em;
-    background-color: #02040f;
+    background-color: var(--background);
     display: grid;
     gap: 1rem;
     grid-template-rows: auto min-content;

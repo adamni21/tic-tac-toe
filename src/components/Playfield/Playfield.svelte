@@ -33,7 +33,7 @@
   div {
     padding: 2rem;
     margin-top: 5rem;
-    background-color: #011529;
+    background-color: var(--surface);
     border-radius: 0.5rem;
     display: grid;
     gap: 6%;
