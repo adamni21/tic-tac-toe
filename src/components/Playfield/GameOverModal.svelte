@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { ticTacToe } from "../../stores/ticTacToe";
   import { onDestroy } from "svelte";
 
   import Modal from "../UI/Modal.svelte";
-import Button from "../UI/Button.svelte";
+  import Button from "../UI/Button.svelte";
+  import { ticTacToe } from "../../stores/ticTacToe/gameStore";
   let isOpen = false;
   let game;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
@@ -17,7 +17,7 @@ import Button from "../UI/Button.svelte";
 <Modal bind:isOpen>
   <div class="main rnd-corners">
     <h2 class="title">
-      {#if game.winner === ""}
+      {#if game.winner === "_"}
         Draw
       {:else}
         Player <span class={game.winner}>{game.winner.toUpperCase()}</span> has won.
@@ -40,9 +40,9 @@ import Button from "../UI/Button.svelte";
     padding-bottom: 3rem;
   }
   .o {
-    color: var(--primary)
+    color: var(--primary);
   }
   .x {
-    color: var(--secondary)
+    color: var(--secondary);
   }
 </style>

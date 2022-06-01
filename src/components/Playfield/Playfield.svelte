@@ -1,10 +1,10 @@
 <script lang="ts">
   import Field from "./Field.svelte";
-  import { ticTacToe } from "../../stores/ticTacToe";
-  import type { TicTacToeStore } from "../../stores/types";
   import { onDestroy } from "svelte";
   import SettingsModal from "./SettingsModal.svelte";
   import GameOverModal from "./GameOverModal.svelte";
+  import type { TicTacToeStore } from "../../stores/ticTacToe/types";
+  import { ticTacToe } from "../../stores/ticTacToe/gameStore";
 
   let settingsOpen = true;
 

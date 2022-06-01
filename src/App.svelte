@@ -2,9 +2,8 @@
   import { onDestroy } from "svelte";
 
   import Playfield from "./components/Playfield/Playfield.svelte";
-  import Button from "./components/UI/Button.svelte";
-  import { ticTacToe } from "./stores/ticTacToe";
-  import type { TicTacToeStore } from "./stores/types";
+  import { ticTacToe } from "./stores/ticTacToe/gameStore";
+  import type { TicTacToeStore } from "./stores/ticTacToe/types";
 
   let game: TicTacToeStore;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));

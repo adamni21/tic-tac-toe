@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { ticTacToe } from "../../stores/ticTacToe";
+  import { ticTacToe } from "../../stores/ticTacToe/gameStore";
+  import type { Player } from "../../stores/ticTacToe/types";
   import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
-  import type { Player } from "./types";
 
   export let settingsOpen;
 

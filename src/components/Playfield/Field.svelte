@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { ticTacToe } from "../../stores/ticTacToe/gameStore";
+
   import CircleMark from "../marks/CircleMark.svelte";
   import XMark from "../marks/XMark.svelte";
-
-  import { ticTacToe } from "../../stores/ticTacToe";
 
   export let coordinates: { x: number; y: number };
   export let owner = "";
