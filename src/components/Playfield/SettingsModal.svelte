@@ -1,16 +1,16 @@
 <script lang="ts">
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
-  import type { Player } from "../../stores/ticTacToe/types";
+  import type { Mark } from "../../stores/ticTacToe/types";
   import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
 
   export let settingsOpen;
 
-  let startingPlayer: Player = "x";
+  let startingPlayer: Mark = "x";
 
   const startGameHandler = () => {
     settingsOpen = false;
-    ticTacToe.startNewGame(startingPlayer);
+    ticTacToe.startNewGame();
   };
 </script>
 
@@ -22,7 +22,7 @@
         <div>
           <label for="X">X</label>
           <input
-            bind:group={startingPlayer}
+            group={startingPlayer}
             type="radio"
             name="startingPlayer"
             id="X"
@@ -33,7 +33,7 @@
         <div>
           <label for="O">O</label>
           <input
-            bind:group={startingPlayer}
+            group={startingPlayer}
             type="radio"
             name="startingPlayer"
             id="O"

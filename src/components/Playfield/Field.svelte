@@ -1,10 +1,11 @@
 <script lang="ts">
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
+import type { Coordinates } from "../../stores/ticTacToe/types";
 
   import CircleMark from "../marks/CircleMark.svelte";
   import XMark from "../marks/XMark.svelte";
 
-  export let coordinates: { x: number; y: number };
+  export let coordinates: Coordinates;
   export let owner = "";
 
   const clickHandler = () => {

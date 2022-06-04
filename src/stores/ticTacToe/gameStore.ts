@@ -1,11 +1,11 @@
 import getSquareArray from "../../utils/getSquareArray";
-import { writable } from "svelte/store";
-import type { GameSettings, Player, ProcessClick, TicTacToeStore } from "./types";
+import { get, writable } from "svelte/store";
+import type { Coordinates, TicTacToeStore } from "./types";
 import { aiMove, hasWinner } from "./utils";
+import { gameSettings, settingsInit } from "./settingsStore";
 
 const init: TicTacToeStore = {
-  size: 3,
-  aiMark: null,
+  ...settingsInit,
   currentPlayer: "x",
   currentState: getSquareArray(3, "_"),
   running: false,
@@ -24,51 +24,41 @@ function createTicTacToe() {
         game.winner = "_";
       game.running = game.winner === null;
     }
-  }
+  };
 
-  const processClick: ProcessClick = ({ x, y }) => {
-    let validMove: boolean;
-    let aiHasToMove = false;
-
+  // sets owner of field currentState[row][col] to currentPlayer
+  const setFieldOwner = ({ row, col }: Coordinates) => {
     update((game) => {
-      if (game.currentState[x][y] !== "_" || !game.running || game.aiMark === game.currentPlayer) {
-        validMove = false;
+      // break if the field id already occupied
+      if (game.currentState[row][col] !== "_" || !game.running) {
         return game;
       }
 
-      game.currentState[x][y] = game.currentPlayer;
+      game.currentState[row][col] = game.currentPlayer;
       game.currentPlayer = game.currentPlayer === "o" ? "x" : "o";
       game.moveCount++;
 
-      checkForWinner(game)
+      checkForWinner(game);
 
-      if(!game.winner && game.aiMark === game.currentPlayer) aiHasToMove = true
-
-      validMove = true;
       return game;
     });
-
-    if (aiHasToMove) {
-      update(game => {
-        const {x, y} = aiMove(game.currentState)
-        game.currentState[x][y] = game.currentPlayer;
-        game.currentPlayer = game.currentPlayer === "o" ? "x" : "o";
-        game.moveCount++;
-  
-        checkForWinner(game)
-
-        return game
-      })
-    }
-
-    return validMove;
   };
 
+  const processClick = ({ row, col }: Coordinates) => {
+    setFieldOwner({ row, col });
+    const game = get(ticTacToe);
+    if (game.singlePlayer && game.currentPlayer === game.aiMark && game.running)
+      setFieldOwner(aiMove(game.currentState));
+  };
 
-  const startNewGame = (startingPlayer: Player = "x") => {
+  const startNewGame = () => {
+    const settings = get(gameSettings);
+
     update((game) => {
-      game.currentState = getSquareArray(game.size, "_");
-      game.currentPlayer = startingPlayer;
+      game.size = settings.size;
+      game.currentState = getSquareArray(settings.size, "_");
+      game.currentPlayer = settings.startingPlayer;
+      game.singlePlayer = settings.singlePlayer;
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
@@ -76,13 +66,6 @@ function createTicTacToe() {
       return game;
     });
   };
-
-  const configureGame = (newSettings: GameSettings): void => {
-    update((game) => {
-      if(game.running) return game
-      return {...game, ...newSettings}
-    })
-  }
 
   return { subscribe, processClick, startNewGame };
 }

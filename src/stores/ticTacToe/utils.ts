@@ -58,9 +58,9 @@ export const hasWinner: HasWinner = (currentState) => {
 export const aiMove = (currentState: FieldOwner[][]): Coordinates => {
   const sideLength = currentState.length
   const emptyFields: Coordinates[] = []
-  for(let x = 0; x < sideLength; x++) {
-    for(let y = 0; y < sideLength; y++) {
-      if(currentState[x][y] === "_") emptyFields.push({x, y})
+  for(let row = 0; row < sideLength; row++) {
+    for(let col = 0; col < sideLength; col++) {
+      if(currentState[row][col] === "_") emptyFields.push({row, col})
     }
   }
 

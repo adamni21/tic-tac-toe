@@ -1,21 +1,25 @@
-export type FieldOwner = Player | "_";
-export type Player = "x" | "o";
+export type Mark = "x" | "o";
+export type FieldOwner = Mark | "_";
 export interface Coordinates {
-  x: number;
-  y: number;
+  row: number;
+  col: number;
 }
+
+
 
 export interface GameSettings {
   size: number;
-  aiMark?: Player;
-  currentPlayer: Player;
+  players: Map<Mark, string>;
+  startingPlayer: Mark;
+  singlePlayer: boolean;
+  aiMark: Mark;
 }
 
 export interface TicTacToeStore extends GameSettings {
   running: boolean;
+  currentPlayer: Mark;
   currentState: FieldOwner[][];
   winner?: FieldOwner;
   moveCount: number;
 }
 
-export type ProcessClick = (coordinates: Coordinates) => Boolean

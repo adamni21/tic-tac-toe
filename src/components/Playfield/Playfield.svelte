@@ -7,9 +7,7 @@
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
 
   let settingsOpen = true;
-
   let game: TicTacToeStore;
-
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
 
   onDestroy(unsubscribe);
@@ -22,7 +20,7 @@
 >
   {#each game.currentState as row, rowIndex (rowIndex)}
     {#each row as column, colIndex (colIndex)}
-      <Field coordinates={{ x: rowIndex, y: colIndex }} owner={column} />
+      <Field coordinates={{ row: rowIndex, col: colIndex }} owner={column} />
     {/each}
   {/each}
   <SettingsModal bind:settingsOpen />
