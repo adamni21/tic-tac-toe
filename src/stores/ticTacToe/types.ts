@@ -5,14 +5,21 @@ export interface Coordinates {
   col: number;
 }
 
-
+export interface Players {
+  x: string,
+  o: string
+}
 
 export interface GameSettings {
   size: number;
-  players: Map<Mark, string>;
+  players: Players;
   startingPlayer: Mark;
   singlePlayer: boolean;
   aiMark: Mark;
+}
+
+export interface UpdatedSettings extends Partial<Omit<GameSettings, 'players'>> {
+  players?: Partial<Players>;
 }
 
 export interface TicTacToeStore extends GameSettings {

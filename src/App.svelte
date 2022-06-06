@@ -7,13 +7,14 @@
 
   let game: TicTacToeStore;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
+
   onDestroy(unsubscribe);
 </script>
 
 <body>
   {#if game.winner === null && game.running}
     <h2>
-      Player {game.currentPlayer}'s turn
+      {game.players[game.currentPlayer]}'s turn
     </h2>
   {/if}
   <Playfield />

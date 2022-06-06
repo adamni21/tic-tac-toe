@@ -53,17 +53,15 @@ function createTicTacToe() {
 
   const startNewGame = () => {
     const settings = get(gameSettings);
-
+    
     update((game) => {
-      game.size = settings.size;
       game.currentState = getSquareArray(settings.size, "_");
       game.currentPlayer = settings.startingPlayer;
-      game.singlePlayer = settings.singlePlayer;
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
 
-      return game;
+      return {...game, ...settings};
     });
   };
 

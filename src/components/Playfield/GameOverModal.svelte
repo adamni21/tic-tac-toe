@@ -30,7 +30,7 @@
         </span>
       {:else}
         <span class={game.winner}>
-          {game.players.get(game.winner)}
+          {game.players[game.winner]}
         </span> has won.
       {/if}
     </h2>
