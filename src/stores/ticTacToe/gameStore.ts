@@ -48,7 +48,7 @@ function createTicTacToe() {
     setFieldOwner({ row, col });
     const game = get(ticTacToe);
     if (game.singlePlayer && game.currentPlayer === game.aiMark && game.running)
-      setFieldOwner(aiMove(game.currentState));
+      setFieldOwner(aiMove(game.currentState, 0, game.aiMark));
   };
 
   const startNewGame = () => {

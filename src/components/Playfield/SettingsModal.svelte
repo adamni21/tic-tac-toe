@@ -36,7 +36,7 @@
       <div class="names">
         <div>
           <label for="x">Player X Name</label>
-          <input type="text" name="players" id="x" placeholder="Player X" />
+          <input type="text" name="players" id="x" placeholder="Player 1" />
         </div>
         <div class:disabled={$gameSettings.singlePlayer}>
           <label for="o">Player O Name</label>
