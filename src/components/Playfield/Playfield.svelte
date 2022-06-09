@@ -10,6 +10,9 @@
   let game: TicTacToeStore;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
 
+  $: if (game.singlePlayer && game.currentPlayer === game.aiMark)
+    ticTacToe.triggerAiMove();
+
   onDestroy(unsubscribe);
 </script>
 
