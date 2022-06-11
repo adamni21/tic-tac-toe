@@ -1,14 +1,14 @@
 export type Mark = "x" | "o";
 export type FieldOwner = Mark | "_";
-export type AiDifficulty = 0 | 1 | 2
+export type AiDifficulty = 0 | 1 | 2;
 export interface Coordinates {
   row: number;
   col: number;
 }
 
 export interface Players {
-  x: string,
-  o: string
+  x: string;
+  o: string;
 }
 
 export interface GameSettings {
@@ -19,7 +19,8 @@ export interface GameSettings {
   aiMark: Mark;
 }
 
-export interface UpdatedSettings extends Partial<Omit<GameSettings, 'players'>> {
+export interface UpdatedSettings
+  extends Partial<Omit<GameSettings, "players">> {
   players?: Partial<Players>;
 }
 
@@ -31,3 +32,8 @@ export interface TicTacToeStore extends GameSettings {
   moveCount: number;
 }
 
+export interface Ratings {
+  rows: number[];
+  columns: number[];
+  diagonals: number[];
+}

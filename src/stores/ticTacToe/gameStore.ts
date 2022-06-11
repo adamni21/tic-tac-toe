@@ -35,10 +35,11 @@ function createTicTacToe() {
       }
 
       game.currentState[row][col] = game.currentPlayer;
-      game.currentPlayer = game.currentPlayer === "o" ? "x" : "o";
       game.moveCount++;
 
       checkForWinner(game);
+      if (game.running)
+        game.currentPlayer = game.currentPlayer === "o" ? "x" : "o";
 
       return game;
     });
@@ -50,8 +51,10 @@ function createTicTacToe() {
   };
 
   const triggerAiMove = () => {
-    const { currentState, aiMark } = get(ticTacToe);
-    setFieldOwner(aiMove(currentState, 0, aiMark));
+    const { currentState, aiMark, currentPlayer } = get(ticTacToe);
+    setFieldOwner(
+      aiMove(currentState, 2, aiMark, currentPlayer === "o" ? "x" : "o")
+    );
   };
 
   const startNewGame = () => {
