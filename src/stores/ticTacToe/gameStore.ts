@@ -1,8 +1,10 @@
-import getSquareArray from "../../utils/getSquareArray";
+import getSquareArray from "../../utils/ticTacToe/getSquareArray";
 import { get, writable } from "svelte/store";
-import type { Coordinates, TicTacToeStore } from "./types";
-import { aiMove, hasWinner } from "./utils";
+import type { TicTacToeStore } from "./types";
+import { aiMove } from "../../utils/ticTacToe/computerOppenent/utils";
 import { gameSettings, settingsInit } from "./settingsStore";
+import type { Coordinates } from "../../utils/ticTacToe/types";
+import hasWinner from "../../utils/ticTacToe/hasWiner";
 
 const init: TicTacToeStore = {
   ...settingsInit,

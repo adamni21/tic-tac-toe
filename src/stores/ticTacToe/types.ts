@@ -1,10 +1,4 @@
-export type Mark = "x" | "o";
-export type FieldOwner = Mark | "_";
-export type AiDifficulty = 0 | 1 | 2;
-export interface Coordinates {
-  row: number;
-  col: number;
-}
+import type { FieldOwner, Mark } from "../../utils/ticTacToe/types";
 
 export interface Players {
   x: string;
@@ -32,8 +26,3 @@ export interface TicTacToeStore extends GameSettings {
   moveCount: number;
 }
 
-export interface Ratings {
-  rows: number[];
-  columns: number[];
-  diagonals: number[];
-}
