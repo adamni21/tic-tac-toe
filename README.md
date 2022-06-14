@@ -1,48 +1,33 @@
-# Svelte + TS + Vite
+# Tic Tac Toe 
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+built with Svelte + TS + Vite
 
-## Recommended IDE Setup
+### To Start It
 
-[VSCode](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+1. Download or git clone repository
+2. run `npm i`
+3. when all packages are install run `npm run dev` to start dev server
 
-## Need an official Svelte framework?
+## Functionality
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+It is possible to play either multiplayer ("offline" on the same machine) or single player (against an [ai opponent](#ai-opponent)), and only single games (no scoreboard).
 
-## Technical considerations
+## Ai Opponent
 
-**Why use this over SvelteKit?**
+The Ai has three levels of difficulty (not yet configurable through the GUI).
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+The levels are:
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+1. Picks random free field.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+2. Continues best straight (row, column, or diagonal) that has the most own marks (x | o) and has no opponent marks.
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+3. Completes straight if only one field is missing, else if opponent lacks only one field to win block it (cannot prevent binds), or else continues best straight.
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+## In Work
 
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+- Code testing
+- 4th Ai difficulty (unbeatable)
+- Scoreboard
+- Making ai difficulty configurable from GUI
+- Perhaps making playfield size configurable from GUI
