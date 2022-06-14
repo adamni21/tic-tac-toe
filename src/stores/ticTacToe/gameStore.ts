@@ -55,7 +55,7 @@ function createTicTacToe() {
   const triggerAiMove = () => {
     const { currentState, aiMark, currentPlayer } = get(ticTacToe);
     setFieldOwner(
-      aiMove(currentState, 2, aiMark, currentPlayer === "o" ? "x" : "o")
+      aiMove(currentState, "2", aiMark, currentPlayer === "o" ? "x" : "o")
     );
   };
 

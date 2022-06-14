@@ -5,6 +5,7 @@ import type {
   Mark,
   Ratings,
 } from "../types";
+import randomMove from "./randomMove";
 
 export const aiMove = (
   currentState: FieldOwner[][],
@@ -13,13 +14,13 @@ export const aiMove = (
   playersMark: Mark
 ): Coordinates => {
   // difficulty 0: random move
-  if (difficulty === 0) return randomMove(currentState);
+  if (difficulty === "0") return randomMove(currentState);
 
   const sideLength = currentState.length;
   const { ratings, freeFields } = rateStraights(currentState, aiMark);
   //difficulty 2: prevents opponent from completing straight if necessary, or else continues best own straight
   const needToPrevent = Math.max(...Object.values(ratings)) === sideLength - 1;
-  if (difficulty === 2 && needToPrevent) {
+  if (difficulty === "2" && needToPrevent) {
     const prevent = preventCompletion(currentState, playersMark);
     if (prevent) return prevent;
     // if prevent === null continue with best straight
@@ -28,18 +29,6 @@ export const aiMove = (
   // difficulty 1 and continuation of difficulty 2
   return bestStraight(ratings, freeFields, currentState.length);
 };
-
-export function randomMove(currentState: FieldOwner[][]): Coordinates {
-  const sideLength = currentState.length;
-  let row = Math.floor(Math.random() * sideLength);
-  let col = Math.floor(Math.random() * sideLength);
-  // find next free field from random initial coordinates defined above
-  while (currentState[row][col] !== "_") {
-    if (row === 2) col = (col + 1) % sideLength;
-    row = (row + 1) % sideLength;
-  }
-  return { row, col };
-}
 
 /* finds the straight (row/column/diagonal) with most own marks and without any opponent mark if there is one,
     else returns random free field */
