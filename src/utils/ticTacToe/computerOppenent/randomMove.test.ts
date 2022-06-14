@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import getSquareArray from "../getSquareArray";
 import type { FieldOwner } from "../types";
-import { randomMove } from "./utils";
+import randomMove from "./randomMove";
 
 describe("randomMove()", () => {
   test('returned coordinates to be free i.e. "_"', () => {
