@@ -9,8 +9,8 @@ describe("rateStraights", () => {
     ["x", "x", "o", "_"],
     ["x", "x", "_", "_"],
   ];
-  const x = rateStraights(currentState, "x").ratings;
-  const o = rateStraights(currentState, "o").ratings;
+  const x = rateStraights(currentState, "x");
+  const o = rateStraights(currentState, "o");
 
   test("ratings of rows to be correct", () => {
     const xRows = x.rows;
