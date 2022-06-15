@@ -1,4 +1,4 @@
-import type { FieldOwner, Mark } from "../../utils/ticTacToe/types";
+import type { BoardState, FieldOwner, Mark } from "../../utils/ticTacToe/types";
 
 export interface Players {
   x: string;
@@ -21,7 +21,7 @@ export interface UpdatedSettings
 export interface TicTacToeStore extends GameSettings {
   running: boolean;
   currentPlayer: Mark;
-  currentState: FieldOwner[][];
+  currentState: BoardState;
   winner?: FieldOwner;
   moveCount: number;
 }

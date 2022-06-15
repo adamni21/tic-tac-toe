@@ -17,8 +17,8 @@ const fieldsByRating = (
     if (r === rating) valid.diags.push(i);
   });
 
-  // required for checking whether coordinates are in diag[1]
-  const lastCol = ratings.columns.length - 1;
+  
+  const lastCol = ratings.columns.length - 1;// required for checking whether coordinates are in diag[1]
   const validFields: Coordinates[] = [];
   // push all free fields that are in a valid row, col, or diag
   for (let i = 0; i < freeFields.length; i++) {

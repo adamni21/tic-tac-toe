@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import getFreeFields from "./getFreeFields";
-import type { FieldOwner } from "./ticTacToe/types";
+import type { FieldOwner } from "./types";
 
 const state: FieldOwner[][] = [
   ["_", "o", "_"],

@@ -1,6 +1,6 @@
-import type { Coordinates, FieldOwner } from "./ticTacToe/types";
+import type { BoardState, Coordinates } from "../ticTacToe/types";
 
-const getFreeFields = (state: FieldOwner[][]): Coordinates[] => {
+const getFreeFields = (state: BoardState): Coordinates[] => {
   const sideLength = state.length;
   const freeFields: Coordinates[] = [];
   for (let row = 0; row < sideLength; row++) {
