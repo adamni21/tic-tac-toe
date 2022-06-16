@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import getFreeFields from "../../getFreeFields";
+import getFreeFields from "../getFreeFields";
 import type { FieldOwner, Ratings } from "../types";
 import fieldsByRating from "./fieldsByRating";
 
