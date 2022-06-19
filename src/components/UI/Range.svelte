@@ -6,11 +6,11 @@
   export let primary = false;
   export let secondary = false;
 
-  let slider;
-  let baseWidth;
+  let slider: HTMLElement | null;
+  let baseWidth: number;
 
-  let sOff;
-  let pos;
+  let sOff: number;
+  let pos: number;
   let isMousedown = false;
 
   onMount(() => {
@@ -18,6 +18,7 @@
     pos = (baseWidth / (max - min)) * value;
   });
   const updatePos = (cursorPos) => {
+    // cursor position relative to slider start
     const rltvPos = cursorPos - sOff + window.scrollX;
     // cut relative position to width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
