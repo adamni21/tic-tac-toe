@@ -1,32 +1,44 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  export let value: number;
-  export let min: number;
-  export let max: number;
-  export let primary = false;
+  import { createEventDispatcher, onMount } from "svelte";
+  export let value: string;
+  export let min: string;
+  export let max: string;
+  let valueN = Number(value);
+  let minN = Number(min);
+  let maxN = Number(max);
+  export let disabled = false;
   export let secondary = false;
+  export let primary = !secondary;
 
+  const dispatch = createEventDispatcher();
   let slider: HTMLElement | null;
+  let base: HTMLElement | null;
   let baseWidth: number;
 
   let sOff: number;
   let pos: number;
   let isMousedown = false;
 
+  $: dispatch("change", { value });
+
   onMount(() => {
     sOff = slider.getBoundingClientRect().x;
-    pos = (baseWidth / (max - min)) * value;
+    baseWidth = base.getBoundingClientRect().width;
+    pos = (baseWidth / (maxN - minN)) * valueN;
   });
   const updatePos = (cursorPos) => {
     // cursor position relative to slider start
     const rltvPos = cursorPos - sOff + window.scrollX;
-    // cut relative position to width of base/track
+    // cut relative position to be not negative and not greater than width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
-    const nearest = Math.round(cut / (baseWidth / (max - min)));
-    value = nearest;
-    pos = (baseWidth / (max - min)) * value;
+    const nearest = Math.round(cut / (baseWidth / (maxN - minN)));
+    valueN = nearest;
+    value = String(valueN);
+    if (valueN === maxN) pos = baseWidth;
+    else pos = (baseWidth / (maxN - minN)) * valueN;
   };
   const handleMousedown = (e) => {
+    if (disabled) return;
     updatePos(e.clientX);
     isMousedown = true;
   };
@@ -47,7 +59,7 @@
   on:mouseup={resetMousedown}
   on:mouseleave|self={resetMousedown}
 >
-  <div bind:clientWidth={baseWidth} class={"slider-base"}>
+  <div bind:this={base} class={"slider-base"}>
     <div bind:this={slider} class="slider" style={`width: ${pos}px;`}>
       <div class="thumb" />
     </div>
@@ -55,30 +67,35 @@
 </div>
 
 <style>
-  .primary {
-    --color: var(--primary);
-  }
   .secondary {
     --color: var(--secondary);
   }
+
+  .primary {
+    --color: var(--primary);
+  }
+
   .con {
     box-sizing: border-box;
     padding: 0.8rem 1.5rem;
     width: 100%;
     background-color: none;
   }
+
   .slider-base {
     background-color: var(--surface-variant);
     height: 0.6rem;
     width: 100%;
     border-radius: 0.3rem;
   }
+
   .slider {
     height: 100%;
     background-color: var(--color);
     border-radius: 0.3rem;
     position: relative;
   }
+
   .thumb {
     height: 180%;
     aspect-ratio: 1;
