@@ -24,12 +24,10 @@ The levels are:
 
 3. Completes straight if only one field is missing, else if opponent lacks only one field to win block it (cannot prevent binds), or else continues best straight.
 
-To change ai difficulty go to "./src/stores/ticTacToe/gameStore.ts -> `createTicTacToe` -> `triggerAiMove` (ln: 55) -> `aiMove(...)` (ln: 58).
 
 ## In Work
 
 - Code testing
 - 4th Ai difficulty (unbeatable)
 - Scoreboard
-- Making ai difficulty configurable from GUI
 - Perhaps making playfield size configurable from GUI

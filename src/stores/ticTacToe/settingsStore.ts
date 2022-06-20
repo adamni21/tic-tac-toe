@@ -1,4 +1,4 @@
-import { get, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import type { GameSettings, UpdatedSettings } from "./types";
 
 export const settingsInit: GameSettings = {
@@ -6,6 +6,7 @@ export const settingsInit: GameSettings = {
   players: { x: "Player 1", o: "Player 2" },
   singlePlayer: true, // change to false when finished with computer oppenent
   aiMark: "o",
+  aiDifficulty: "1",
   startingPlayer: "x",
 };
 

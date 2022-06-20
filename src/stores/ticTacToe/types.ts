@@ -1,4 +1,4 @@
-import type { BoardState, FieldOwner, Mark } from "../../utils/ticTacToe/types";
+import type { AiDifficulty, BoardState, FieldOwner, Mark } from "../../utils/ticTacToe/types";
 
 export interface Players {
   x: string;
@@ -11,6 +11,7 @@ export interface GameSettings {
   startingPlayer: Mark;
   singlePlayer: boolean;
   aiMark: Mark;
+  aiDifficulty: AiDifficulty;
 }
 
 export interface UpdatedSettings

@@ -3,16 +3,22 @@
   import { gameSettings } from "../../stores/ticTacToe/settingsStore";
   import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
+  import Range from "../UI/Range.svelte";
 
   export let settingsOpen;
+
+  let difficulty = $gameSettings.aiDifficulty;
 
   const changeHandler = (e: Event) => {
     const target = e.target as HTMLInputElement;
     if (target.type === "checkbox")
       gameSettings.updateSettings({ singlePlayer: target.checked });
     else if (target.name === "players")
-      gameSettings.updateSettings({ players:{ [target.id]: target.value} });
+      gameSettings.updateSettings({ players: { [target.id]: target.value } });
     else gameSettings.updateSettings({ [target.name]: target.value });
+  };
+  const difficultyChangeHandler = ({ detail }: CustomEvent) => {
+    gameSettings.updateSettings({ aiDifficulty: detail.value });
   };
 
   const startGameHandler = () => {
@@ -24,15 +30,6 @@
 <Modal bind:isOpen={settingsOpen} onOverlayClick={null}>
   <div class="main rnd-corners">
     <form class="settings" on:change={changeHandler}>
-      <div>
-        <input
-          type="checkbox"
-          name="singlePlayer"
-          id="singlePlayer"
-          checked={$gameSettings.singlePlayer}
-        />
-        <label for="singleplayer">Single Player</label>
-      </div>
       <div class="names">
         <div>
           <label for="x">Player X Name</label>
@@ -46,6 +43,24 @@
             id="o"
             placeholder="Player 2"
             disabled={$gameSettings.singlePlayer}
+          />
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="singlePlayer"
+            id="singlePlayer"
+            checked={$gameSettings.singlePlayer}
+          />
+          <label for="singleplayer">Single Player</label>
+        </div>
+        <div class:disabled={!$gameSettings.singlePlayer}>
+          <label for="aiDifficulty">Difficulty</label>
+          <Range
+            min="0"
+            max="2"
+            bind:value={difficulty}
+            on:change={difficultyChangeHandler}
           />
         </div>
         <fieldset class="starting">
