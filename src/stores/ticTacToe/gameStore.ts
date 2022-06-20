@@ -1,10 +1,11 @@
 import getSquareArray from "../../utils/ticTacToe/getSquareArray";
 import { get, writable } from "svelte/store";
 import type { TicTacToeStore } from "./types";
-import { aiMove } from "../../utils/ticTacToe/computerOppenent/utils";
+import aiMove from "../../utils/ticTacToe/computerOppenent/aiMove";
 import { gameSettings, settingsInit } from "./settingsStore";
 import type { Coordinates } from "../../utils/ticTacToe/types";
 import hasWinner from "../../utils/ticTacToe/hasWiner";
+import randomElemOf from "../../utils/randomElemOf";
 
 const init: TicTacToeStore = {
   ...settingsInit,
@@ -53,9 +54,18 @@ function createTicTacToe() {
   };
 
   const triggerAiMove = () => {
-    const { currentState, aiMark, currentPlayer } = get(ticTacToe);
+    const { currentState, aiMark, currentPlayer, aiDifficulty } =
+      get(ticTacToe);
+
     setFieldOwner(
-      aiMove(currentState, "2", aiMark, currentPlayer === "o" ? "x" : "o")
+      randomElemOf(
+        aiMove(
+          currentState,
+          aiDifficulty,
+          aiMark,
+          currentPlayer === "o" ? "x" : "o"
+        )
+      )
     );
   };
 
