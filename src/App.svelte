@@ -4,6 +4,7 @@
   import Scoreboard from "./components/Scoreboard.svelte";
 
   import { ticTacToe } from "./stores/ticTacToe/gameStore";
+  import { gameSettings } from "./stores/ticTacToe/settingsStore";
   import type { TicTacToeStore } from "./stores/ticTacToe/types";
 
   let game: TicTacToeStore;
@@ -17,7 +18,7 @@
     <Scoreboard
       player1Name={game.players.x}
       player1Score={game.score.x}
-      player2Name={game.singlePlayer ? "Computer" : game.players.o}
+      player2Name={$gameSettings.singlePlayer ? "Computer" : game.players.o}
       player2Score={game.score.o}
     />
     <Gameboard />
