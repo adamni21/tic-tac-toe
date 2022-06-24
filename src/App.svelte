@@ -16,9 +16,11 @@
 <body>
   <main>
     <Scoreboard
-      player1Name={game.players.x}
+      player1Name={$gameSettings.players.x}
       player1Score={game.score.x}
-      player2Name={$gameSettings.singlePlayer ? "Computer" : game.players.o}
+      player2Name={$gameSettings.singlePlayer
+        ? "Computer"
+        : $gameSettings.players.o}
       player2Score={game.score.o}
     />
     <Gameboard />
