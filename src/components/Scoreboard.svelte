@@ -6,13 +6,14 @@
 </script>
 
 <div class="main">
-  <div class="details player1">
-    <span class="name">{player1Name}</span>
-    <span class="score">{player1Score}</span>
+  <div class="names">
+    <span class="player1">{player1Name}</span>
+    <span class="player2">{player2Name}</span>
   </div>
-  <div class="details player2">
-    <span class="name">{player2Name}</span>
-    <span class="score">{player2Score}</span>
+  <div class="score">
+    <span>{player1Score}</span>
+    -
+    <span>{player2Score}</span>
   </div>
 </div>
 
@@ -20,26 +21,28 @@
   .main {
     padding-top: 1rem;
     width: 100%;
-    max-width: 450px;
-    display: flex;
-    justify-content: space-between;
-    column-gap: 4rem;
   }
-  .details {
+  .names {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .name {
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 0 1rem;
     font-size: 2rem;
+  }
+  .names > * {
+    flex: 1;
+    text-align: center;
   }
   .score {
     font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
   }
-  .player1 .name {
+  .player1 {
     color: var(--secondary);
   }
-  .player2 .name {
+  .player2 {
     color: var(--primary);
   }
 </style>

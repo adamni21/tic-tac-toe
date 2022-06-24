@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
+  import Gameboard from "./components/Gameboard/Gameboard.svelte";
+  import Scoreboard from "./components/Scoreboard.svelte";
 
-  import Playfield from "./components/Playfield/Playfield.svelte";
   import { ticTacToe } from "./stores/ticTacToe/gameStore";
   import type { TicTacToeStore } from "./stores/ticTacToe/types";
 
@@ -12,24 +13,30 @@
 </script>
 
 <body>
-  {#if game.winner === null && game.running}
-    <h2>
-      {game.players[game.currentPlayer]}'s turn
-    </h2>
-  {/if}
-  <Playfield />
+  <main>
+    <Scoreboard
+      player1Name={game.players.x}
+      player1Score={game.score.x}
+      player2Name={game.singlePlayer ? "Computer" : game.players.o}
+      player2Score={game.score.o}
+    />
+    <Gameboard />
+  </main>
 </body>
 
 <style>
-  body {
-    display: grid;
-    justify-items: center;
-  }
-
   :global(.rnd-corners) {
     border-radius: 15px;
   }
-
+  main {
+    margin: 0 auto;
+    width: 90%;
+    min-width: 350px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   :root {
     color: var(--on-background);
     background-color: var(--background);

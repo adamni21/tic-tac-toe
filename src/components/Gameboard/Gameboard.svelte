@@ -16,30 +16,38 @@
   onDestroy(unsubscribe);
 </script>
 
-<div
-  style={`
+<div class="outer-bounds">
+  <div
+    class="inner-bounds"
+    style={`
   grid-template-columns: repeat(${game.size}, 1fr);
   grid-template-rows: repeat(${game.size}, 1fr);`}
->
-  {#each game.currentState as row, rowIndex (rowIndex)}
-    {#each row as column, colIndex (colIndex)}
-      <Field coordinates={{ row: rowIndex, col: colIndex }} owner={column} />
+  >
+    {#each game.currentBoard as row, rowIndex (rowIndex)}
+      {#each row as column, colIndex (colIndex)}
+        <Field coordinates={{ row: rowIndex, col: colIndex }} owner={column} />
+      {/each}
     {/each}
-  {/each}
-  <SettingsModal bind:settingsOpen />
-  <GameOverModal />
+    <SettingsModal bind:settingsOpen />
+    <GameOverModal />
+  </div>
 </div>
 
 <style>
-  div {
-    padding: 2rem;
-    margin-top: 5rem;
+  .outer-bounds {
+    margin-top: 2rem;
     background-color: var(--surface);
     border-radius: 0.5rem;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .inner-bounds {
     display: grid;
     gap: 6%;
-    width: 65%;
-    max-width: 400px;
-    aspect-ratio: 1;
+    width: 85%;
+    height: 85%;
   }
 </style>

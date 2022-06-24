@@ -9,8 +9,9 @@ import randomElemOf from "../../utils/randomElemOf";
 
 const init: TicTacToeStore = {
   ...settingsInit,
+  score: { x: 0, o: 0 },
   currentPlayer: "x",
-  currentState: getSquareArray(3, "_"),
+  currentBoard: getSquareArray(3, "_"),
   running: false,
   moveCount: 0,
   winner: null,
@@ -22,27 +23,30 @@ function createTicTacToe() {
   const checkForWinner = (game: TicTacToeStore): void => {
     const enoughMoves: boolean = game.moveCount >= game.size * 2 - 1;
     if (enoughMoves) {
-      game.winner = hasWinner(game.currentState);
+      game.winner = hasWinner(game.currentBoard);
       if (game.moveCount === game.size ** 2 && game.winner === null)
         game.winner = "_";
       game.running = game.winner === null;
     }
   };
 
-  // sets owner of field currentState[row][col] to currentPlayer
+  // sets owner of field currentBoard[row][col] to currentPlayer
   const setFieldOwner = ({ row, col }: Coordinates) => {
     update((game) => {
       // break if the field is already occupied
-      if (game.currentState[row][col] !== "_" || !game.running) {
+      if (game.currentBoard[row][col] !== "_" || !game.running) {
         return game;
       }
 
-      game.currentState[row][col] = game.currentPlayer;
+      game.currentBoard[row][col] = game.currentPlayer;
       game.moveCount++;
 
       checkForWinner(game);
+      // has not won
       if (game.running)
         game.currentPlayer = game.currentPlayer === "o" ? "x" : "o";
+      // has won
+      else if (game.winner !== "_") game.score[game.winner]++;
 
       return game;
     });
@@ -54,13 +58,12 @@ function createTicTacToe() {
   };
 
   const triggerAiMove = () => {
-    const { currentState, aiMark, currentPlayer, aiDifficulty } =
+    const { currentBoard, aiMark, currentPlayer, aiDifficulty } =
       get(ticTacToe);
-
     setFieldOwner(
       randomElemOf(
         aiMove(
-          currentState,
+          currentBoard,
           aiDifficulty,
           aiMark,
           currentPlayer === "o" ? "x" : "o"
@@ -73,7 +76,7 @@ function createTicTacToe() {
     const settings = get(gameSettings);
 
     update((game) => {
-      game.currentState = getSquareArray(settings.size, "_");
+      game.currentBoard = getSquareArray(settings.size, "_");
       game.currentPlayer = settings.startingPlayer;
       game.winner = null;
       game.moveCount = 0;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
-import type { Coordinates } from "../../stores/ticTacToe/types";
+  import type { Coordinates } from "../../utils/ticTacToe/types";
 
   import CircleMark from "../marks/CircleMark.svelte";
   import XMark from "../marks/XMark.svelte";

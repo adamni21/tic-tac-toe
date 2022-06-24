@@ -1,4 +1,9 @@
-import type { AiDifficulty, BoardState, FieldOwner, Mark } from "../../utils/ticTacToe/types";
+import type {
+  AiDifficulty,
+  BoardState,
+  FieldOwner,
+  Mark,
+} from "../../utils/ticTacToe/types";
 
 export interface Players {
   x: string;
@@ -21,9 +26,9 @@ export interface UpdatedSettings
 
 export interface TicTacToeStore extends GameSettings {
   running: boolean;
+  score: { x: number; o: number };
   currentPlayer: Mark;
-  currentState: BoardState;
+  currentBoard: BoardState;
   winner?: FieldOwner;
   moveCount: number;
 }
-
