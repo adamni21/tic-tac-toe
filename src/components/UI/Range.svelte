@@ -1,11 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
-  export let value: string;
   export let min: string;
   export let max: string;
-  let valueN = Number(value);
+  export let value = min;
   let minN = Number(min);
   let maxN = Number(max);
+  let valueN = Number(value);
   export let disabled = false;
   export let secondary = false;
   export let primary = !secondary;
@@ -15,38 +15,41 @@
   let base: HTMLElement | null;
   let baseWidth: number;
 
-  let sOff: number;
-  let pos: number;
+  let sliderOffset: number;
+  let sliderWidth: number;
   let isMousedown = false;
 
   $: dispatch("change", { value });
 
   onMount(() => {
-    sOff = slider.getBoundingClientRect().x;
     baseWidth = base.getBoundingClientRect().width;
-    pos = (baseWidth / (maxN - minN)) * valueN;
+    sliderWidth = (baseWidth / (maxN - minN)) * valueN;
   });
   const updatePos = (cursorPos) => {
     // cursor position relative to slider start
-    const rltvPos = cursorPos - sOff + window.scrollX;
+    const rltvPos = cursorPos - sliderOffset;
     // cut relative position to be not negative and not greater than width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
     const nearest = Math.round(cut / (baseWidth / (maxN - minN)));
     valueN = nearest;
-    value = String(valueN);
-    if (valueN === maxN) pos = baseWidth;
-    else pos = (baseWidth / (maxN - minN)) * valueN;
+    if (valueN === maxN) sliderWidth = baseWidth;
+    else sliderWidth = (baseWidth / (maxN - minN)) * valueN;
   };
   const handleMousedown = (e) => {
+    sliderOffset = slider.getBoundingClientRect().x;
+    baseWidth = base.getBoundingClientRect().width;
     if (disabled) return;
     updatePos(e.clientX);
     isMousedown = true;
   };
   const handleMousemove = (e) => {
+    sliderOffset = slider.getBoundingClientRect().x;
+    baseWidth = base.getBoundingClientRect().width;
     if (isMousedown) updatePos(e.clientX);
   };
   const resetMousedown = () => {
     isMousedown = false;
+    if (String(valueN) !== value) value = String(valueN);
   };
 </script>
 
@@ -60,7 +63,7 @@
   on:mouseleave|self={resetMousedown}
 >
   <div bind:this={base} class={"slider-base"}>
-    <div bind:this={slider} class="slider" style={`width: ${pos}px;`}>
+    <div bind:this={slider} class="slider" style={`width: ${sliderWidth}px;`}>
       <div class="thumb" />
     </div>
   </div>
