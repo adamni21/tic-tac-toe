@@ -1,11 +1,18 @@
 <script lang="ts">
-  import type { Coloring } from "./types";
-
-  export let coloring: Coloring = "primary";
+  export let disabled = false;
+  export let secondary = false;
+  export let primary = !secondary;
   export let outlined = false;
 </script>
 
-<button class={`${coloring} ${$$props.class}`} class:outlined on:click>
+<button
+  class={$$props.class}
+  class:primary
+  class:secondary
+  class:disabled
+  class:outlined
+  on:click
+>
   <slot />
 </button>
 
@@ -32,7 +39,7 @@
     color: var(--background);
     background-color: var(--primary);
   }
-  
+
   .secondary {
     color: var(--on-secondary);
     background-color: var(--secondary);
@@ -49,5 +56,9 @@
   .secondary.outlined:hover {
     color: var(--background);
     background-color: var(--secondary);
+  }
+
+  .disabled {
+    filter: saturate(0.7) brightness(0.7);
   }
 </style>
