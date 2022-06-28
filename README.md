@@ -14,7 +14,7 @@ It is possible to play either multiplayer ("offline" on the same machine) or sin
 
 ## Ai Opponent
 
-The Ai has three levels of difficulty (not yet configurable through the GUI).
+The Ai has three levels of difficulty.
 
 The levels are:
 
@@ -29,5 +29,4 @@ The levels are:
 
 - Code testing
 - 4th Ai difficulty (unbeatable)
-- Scoreboard
 - Perhaps making playfield size configurable from GUI
