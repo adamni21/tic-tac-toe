@@ -24,7 +24,7 @@
 
   const startGameHandler = () => {
     settingsOpen = false;
-    ticTacToe.startGame(true);
+    ticTacToe.startGame();
   };
 </script>
 

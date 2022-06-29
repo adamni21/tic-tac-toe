@@ -72,8 +72,12 @@ function createTicTacToe() {
     );
   };
 
-  const startGame = (resetScore = false) => {
-    const settings: Partial<GameSettings> = resetScore ? get(gameSettings) : {};
+  const resetGame = () => {
+    update((game) => ({ ...init, ...settingsInit }));
+  };
+
+  const startGame = (newGame = true) => {
+    const settings: Partial<GameSettings> = newGame ? get(gameSettings) : {};
 
     update((game) => {
       const newStartingPlayer: Mark = game.startingPlayer === "x" ? "o" : "x";
@@ -84,13 +88,13 @@ function createTicTacToe() {
       game.moveCount = 0;
       game.running = true;
 
-      if (resetScore) game.score = init.score;
+      if (newGame) game.score = init.score;
 
       return { ...game, ...settings };
     });
   };
 
-  return { subscribe, processClick, triggerAiMove, startGame };
+  return { subscribe, processClick, triggerAiMove, startGame, resetGame };
 }
 
 export const ticTacToe = createTicTacToe();
