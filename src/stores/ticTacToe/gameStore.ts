@@ -1,9 +1,9 @@
 import getSquareArray from "../../utils/ticTacToe/getSquareArray";
 import { get, writable } from "svelte/store";
-import type { TicTacToeStore } from "./types";
+import type { GameSettings, TicTacToeStore } from "./types";
 import aiMove from "../../utils/ticTacToe/computerOppenent/aiMove";
 import { gameSettings, settingsInit } from "./settingsStore";
-import type { Coordinates } from "../../utils/ticTacToe/types";
+import type { Coordinates, Mark } from "../../utils/ticTacToe/types";
 import hasWinner from "../../utils/ticTacToe/hasWiner";
 import randomElemOf from "../../utils/randomElemOf";
 
@@ -72,21 +72,25 @@ function createTicTacToe() {
     );
   };
 
-  const startNewGame = () => {
-    const settings = get(gameSettings);
+  const startGame = (resetScore = false) => {
+    const settings: Partial<GameSettings> = resetScore ? get(gameSettings) : {};
 
     update((game) => {
-      game.currentBoard = getSquareArray(settings.size, "_");
-      game.currentPlayer = settings.startingPlayer;
+      const newStartingPlayer: Mark = game.startingPlayer === "x" ? "o" : "x";
+
+      game.currentBoard = getSquareArray(settings.size || game.size, "_");
+      game.currentPlayer = settings.startingPlayer || newStartingPlayer;
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
+
+      if (resetScore) game.score = init.score;
 
       return { ...game, ...settings };
     });
   };
 
-  return { subscribe, processClick, triggerAiMove, startNewGame };
+  return { subscribe, processClick, triggerAiMove, startGame };
 }
 
 export const ticTacToe = createTicTacToe();
