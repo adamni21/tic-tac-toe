@@ -1,20 +1,16 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import Button from "./Button.svelte";
   import Modal from "./Modal.svelte";
 
   export let isOpen: boolean;
-
-  const dispatch = createEventDispatcher();
-
-  const confirmHandler = () => dispatch("confirm");
-  const cancelHandler = () => dispatch("cancel");
+  export let confirmHandler;
+  export let cancelHandler;
 </script>
 
 <Modal {isOpen}>
   <div class="main rnd-corners">
     <div class="message">
-     <p><slot name="message" /></p>
+      <p><slot name="message" /></p>
     </div>
     <div class="actions">
       <Button class="action-btn" on:click={cancelHandler} outlined>
@@ -46,14 +42,14 @@
   }
   .message > p {
     margin: 0;
-    padding: 0 .5em;
+    padding: 0 0.5em;
   }
   .actions {
     grid-area: actions;
     justify-self: end;
   }
   .main :global(.action-btn) {
-    padding: .3rem .5rem;
+    padding: 0.3rem 0.5rem;
     border-radius: 99999px;
   }
 </style>
