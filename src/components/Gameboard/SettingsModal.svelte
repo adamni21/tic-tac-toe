@@ -17,13 +17,14 @@
       gameSettings.updateSettings({ players: { [target.id]: target.value } });
     else gameSettings.updateSettings({ [target.name]: target.value });
   };
+
   const difficultyChangeHandler = ({ detail }: CustomEvent) => {
     gameSettings.updateSettings({ aiDifficulty: detail.value });
   };
 
   const startGameHandler = () => {
     settingsOpen = false;
-    ticTacToe.startNewGame();
+    ticTacToe.startGame(true);
   };
 </script>
 
