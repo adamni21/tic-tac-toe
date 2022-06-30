@@ -1,14 +1,29 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
 
-  import Modal from "../UI/Modal.svelte";
-  import Button from "../UI/Button.svelte";
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
   import type { TicTacToeStore } from "../../stores/ticTacToe/types";
+
+  import Modal from "../UI/Modal.svelte";
+  import Button from "../UI/Button.svelte";
+  import ConfirmModal from "../UI/ConfirmModal.svelte";
+
+  export let openSettings: () => void;
+
   let isOpen = false;
+  let confirmOpen = false;
+
   let game: TicTacToeStore;
   const unsubscribe = ticTacToe.subscribe((gameStore) => (game = gameStore));
-  const startNewGameHandler = () => ticTacToe.startNewGame();
+
+  const startNewRoundHandler = () => ticTacToe.startGame(false);
+
+  const confirmHandler = () => {
+    openSettings();
+    ticTacToe.resetGame();
+    confirmOpen = false;
+    isOpen = false;
+  };
 
   $: isOpen = game.winner !== null;
 
@@ -34,8 +49,21 @@
         </span> has won.
       {/if}
     </h2>
-    <Button on:click={startNewGameHandler}>Start new game</Button>
+    <div class="actions">
+      <Button on:click={() => (confirmOpen = true)}>Change Settings</Button>
+      <Button on:click={startNewRoundHandler}>Start New Round</Button>
+    </div>
   </div>
+  <ConfirmModal
+    isOpen={confirmOpen}
+    {confirmHandler}
+    cancelHandler={() => (confirmOpen = false)}
+  >
+    <span slot="message">
+      When proceeding to settings, the score will be erased.
+    </span>
+    <span slot="confirmButtonInner">Proceed</span>
+  </ConfirmModal>
 </Modal>
 
 <style>

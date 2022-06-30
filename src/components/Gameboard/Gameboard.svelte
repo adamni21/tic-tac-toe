@@ -28,9 +28,9 @@
         <Field coordinates={{ row: rowIndex, col: colIndex }} owner={column} />
       {/each}
     {/each}
-    <SettingsModal bind:settingsOpen />
-    <GameOverModal />
   </div>
+  <SettingsModal bind:settingsOpen />
+  <GameOverModal openSettings={() => (settingsOpen = true)} />
 </div>
 
 <style>
