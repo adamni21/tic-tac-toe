@@ -90,6 +90,7 @@ function createTicTacToe() {
 
       game.currentBoard = getSquareArray(settings.size || game.size, "_");
       game.currentPlayer = settings.startingPlayer || newStartingPlayer;
+      game.startingPlayer = game.currentPlayer
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
