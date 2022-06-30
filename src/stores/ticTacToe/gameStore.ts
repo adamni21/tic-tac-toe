@@ -11,14 +11,14 @@ const init: TicTacToeStore = {
   ...settingsInit,
   score: { x: 0, o: 0 },
   currentPlayer: "x",
-  currentBoard: getSquareArray(3, "_"),
+  currentBoard: getSquareArray(4, "_"),
   running: false,
   moveCount: 0,
   winner: null,
 };
 
 function createTicTacToe() {
-  const { subscribe, update } = writable(init);
+  const { subscribe, update, set } = writable(structuredClone(init));
 
   const checkForWinner = (game: TicTacToeStore): void => {
     const enoughMoves: boolean = game.moveCount >= game.size * 2 - 1;
@@ -33,7 +33,7 @@ function createTicTacToe() {
   // sets owner of field currentBoard[row][col] to currentPlayer
   const setFieldOwner = ({ row, col }: Coordinates) => {
     update((game) => {
-      // break if the field is already occupied
+      // return unchanged if the field is already occupied
       if (game.currentBoard[row][col] !== "_" || !game.running) {
         return game;
       }
@@ -73,7 +73,13 @@ function createTicTacToe() {
   };
 
   const resetGame = () => {
-    update((game) => ({ ...init, ...settingsInit }));
+    const currentSettings = get(gameSettings);
+    
+    set({
+      ...structuredClone(init),
+      ...currentSettings,
+      currentBoard: getSquareArray(currentSettings.size, "_"),
+    });
   };
 
   const startGame = (newGame = true) => {
@@ -87,8 +93,6 @@ function createTicTacToe() {
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
-
-      if (newGame) game.score = init.score;
 
       return { ...game, ...settings };
     });
