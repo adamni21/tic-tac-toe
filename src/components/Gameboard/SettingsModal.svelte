@@ -7,7 +7,7 @@
 
   export let settingsOpen;
 
-  let difficulty = $gameSettings.aiDifficulty;
+  let settings = $gameSettings;
 
   const changeHandler = (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -20,6 +20,11 @@
 
   const difficultyChangeHandler = ({ detail }: CustomEvent) => {
     gameSettings.updateSettings({ aiDifficulty: detail.value });
+  };
+
+  const boardSizeChangeHandler = ({ detail }: CustomEvent) => {
+    gameSettings.updateSettings({ size: detail.value });
+    console.log(detail.value);
   };
 
   const startGameHandler = () => {
@@ -36,14 +41,14 @@
           <label for="x">Player X Name</label>
           <input type="text" name="players" id="x" placeholder="Player 1" />
         </div>
-        <div class:disabled={$gameSettings.singlePlayer}>
+        <div class:disabled={settings.singlePlayer}>
           <label for="o">Player O Name</label>
           <input
             type="text"
             name="players"
             id="o"
             placeholder="Player 2"
-            disabled={$gameSettings.singlePlayer}
+            disabled={settings.singlePlayer}
           />
         </div>
         <div>
@@ -51,17 +56,26 @@
             type="checkbox"
             name="singlePlayer"
             id="singlePlayer"
-            checked={$gameSettings.singlePlayer}
+            checked={settings.singlePlayer}
           />
           <label for="singleplayer">Single Player</label>
         </div>
-        <div class:disabled={!$gameSettings.singlePlayer}>
+        <div class:disabled={!settings.singlePlayer}>
           <label for="aiDifficulty">Difficulty</label>
           <Range
             min="0"
             max="2"
-            bind:value={difficulty}
+            value={settings.aiDifficulty}
             on:change={difficultyChangeHandler}
+          />
+        </div>
+        <div>
+          <label for="boardSize">Board Size</label>
+          <Range
+            min="3"
+            max="7"
+            value={settings.size}
+            on:change={boardSizeChangeHandler}
           />
         </div>
         <fieldset class="starting">
