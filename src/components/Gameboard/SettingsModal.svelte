@@ -24,7 +24,6 @@
 
   const boardSizeChangeHandler = ({ detail }: CustomEvent) => {
     gameSettings.updateSettings({ size: detail.value });
-    console.log(detail.value);
   };
 
   const startGameHandler = () => {
