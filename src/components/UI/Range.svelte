@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from "svelte";
   export let min: string;
   export let max: string;
-  export let value = min;
+  export let value: string | number = min;
   let minN = Number(min);
   let maxN = Number(max);
   let valueN = Number(value);
@@ -31,14 +31,14 @@
     // cut relative position to be not negative and not greater than width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
     const nearest = Math.round(cut / (baseWidth / (maxN - minN)));
-    valueN = nearest;
+    valueN = nearest + minN;
     if (valueN === maxN) sliderWidth = baseWidth;
-    else sliderWidth = (baseWidth / (maxN - minN)) * valueN;
+    else sliderWidth = (baseWidth / (maxN - minN)) * nearest;
   };
   const handleMousedown = (e) => {
+    if (disabled) return;
     sliderOffset = slider.getBoundingClientRect().x;
     baseWidth = base.getBoundingClientRect().width;
-    if (disabled) return;
     updatePos(e.clientX);
     isMousedown = true;
   };
