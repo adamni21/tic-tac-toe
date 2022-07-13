@@ -21,7 +21,8 @@
     class="inner-bounds"
     style={`
   grid-template-columns: repeat(${game.size}, 1fr);
-  grid-template-rows: repeat(${game.size}, 1fr);`}
+  grid-template-rows: repeat(${game.size}, 1fr);
+  gap: ${2.5 + (7 - game.size)}%`}
   >
     {#each game.currentBoard as row, rowIndex (rowIndex)}
       {#each row as column, colIndex (colIndex)}
@@ -46,7 +47,6 @@
   }
   .inner-bounds {
     display: grid;
-    gap: 6%;
     width: 85%;
     height: 85%;
   }
