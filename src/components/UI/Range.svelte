@@ -23,7 +23,8 @@
 
   onMount(() => {
     baseWidth = base.getBoundingClientRect().width;
-    sliderWidth = (baseWidth / (maxN - minN)) * valueN;
+    sliderWidth = (baseWidth / (maxN - minN)) * (valueN - minN);
+    console.log(value, valueN);
   });
   const updatePos = (cursorPos) => {
     // cursor position relative to slider start
