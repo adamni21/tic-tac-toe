@@ -29,4 +29,3 @@ The levels are:
 
 - Code testing
 - 4th Ai difficulty (unbeatable)
-- Perhaps making playfield size configurable from GUI
