@@ -55,7 +55,7 @@
             type="checkbox"
             name="singlePlayer"
             id="singlePlayer"
-            checked={settings.singlePlayer}
+            bind:checked={settings.singlePlayer}
           />
           <label for="singleplayer">Single Player</label>
         </div>
