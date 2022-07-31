@@ -3,12 +3,15 @@
   export let min: string;
   export let max: string;
   export let value: string | number = min;
-  let minN = Number(min);
-  let maxN = Number(max);
-  let valueN = Number(value);
   export let disabled = false;
   export let secondary = false;
   export let primary = !secondary;
+
+  $: minN = Number(min);
+  $: maxN = Number(max);
+  $: valueN = Number(value);
+
+  $: range = maxN - minN;
 
   const dispatch = createEventDispatcher();
   let slider: HTMLElement | null;
@@ -21,20 +24,24 @@
 
   $: dispatch("change", { value });
 
+  $: sliderWidth = (((baseWidth / range) * (valueN - minN)) / baseWidth) * 100;
+
+  $: {
+    if (valueN < minN) throw new Error('value must not be smaller than "min"');
+    if (valueN > maxN) throw new Error('value must not be greater than "max"');
+  }
+
   onMount(() => {
     baseWidth = base.getBoundingClientRect().width;
-    sliderWidth = (baseWidth / (maxN - minN)) * (valueN - minN);
-    console.log(value, valueN);
   });
+
   const updatePos = (cursorPos) => {
     // cursor position relative to slider start
     const rltvPos = cursorPos - sliderOffset;
     // cut relative position to be not negative and not greater than width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
-    const nearest = Math.round(cut / (baseWidth / (maxN - minN)));
+    const nearest = Math.round(cut / (baseWidth / range));
     valueN = nearest + minN;
-    if (valueN === maxN) sliderWidth = baseWidth;
-    else sliderWidth = (baseWidth / (maxN - minN)) * nearest;
   };
   const handleMousedown = (e) => {
     if (disabled) return;
@@ -64,7 +71,7 @@
   on:mouseleave|self={resetMousedown}
 >
   <div bind:this={base} class={"slider-base"}>
-    <div bind:this={slider} class="slider" style={`width: ${sliderWidth}px;`}>
+    <div bind:this={slider} class="slider" style={`width: ${sliderWidth}%;`}>
       <div class="thumb" />
     </div>
   </div>
@@ -82,7 +89,7 @@
   .con {
     box-sizing: border-box;
     padding: 0.8rem 1.5rem;
-    width: 100%;
+    width: auto;
     background-color: none;
   }
 
