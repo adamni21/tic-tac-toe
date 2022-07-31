@@ -1,17 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
-  export let min: string;
-  export let max: string;
-  export let value: string | number = min;
+  export let min: number;
+  export let max: number;
+  export let value: number = min;
   export let disabled = false;
   export let secondary = false;
   export let primary = !secondary;
 
-  $: minN = Number(min);
-  $: maxN = Number(max);
-  $: valueN = Number(value);
-
-  $: range = maxN - minN;
+  $: range = max - min;
 
   const dispatch = createEventDispatcher();
   let slider: HTMLElement | null;
@@ -24,11 +20,11 @@
 
   $: dispatch("change", { value });
 
-  $: sliderWidth = (((baseWidth / range) * (valueN - minN)) / baseWidth) * 100;
+  $: sliderWidth = (((baseWidth / range) * (value - min)) / baseWidth) * 100;
 
   $: {
-    if (valueN < minN) throw new Error('value must not be smaller than "min"');
-    if (valueN > maxN) throw new Error('value must not be greater than "max"');
+    if (value < min) throw new Error('value must not be smaller than "min"');
+    if (value > max) throw new Error('value must not be greater than "max"');
   }
 
   onMount(() => {
@@ -41,7 +37,7 @@
     // cut relative position to be not negative and not greater than width of base/track
     const cut = Math.max(Math.min(baseWidth, rltvPos), 0);
     const nearest = Math.round(cut / (baseWidth / range));
-    valueN = nearest + minN;
+    value = nearest + min;
   };
   const handleMousedown = (e) => {
     if (disabled) return;
@@ -57,7 +53,6 @@
   };
   const resetMousedown = () => {
     isMousedown = false;
-    if (String(valueN) !== value) value = String(valueN);
   };
 </script>
 

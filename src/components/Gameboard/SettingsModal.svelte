@@ -62,17 +62,17 @@
         <div class:disabled={!settings.singlePlayer}>
           <label for="aiDifficulty">Difficulty</label>
           <Range
-            min="0"
-            max="2"
-            value={settings.aiDifficulty}
+            min={0}
+            max={2}
+            value={Number(settings.aiDifficulty)}
             on:change={difficultyChangeHandler}
           />
         </div>
         <div>
           <label for="boardSize">Board Size</label>
           <Range
-            min="3"
-            max="7"
+            min={3}
+            max={7}
             value={settings.size}
             on:change={boardSizeChangeHandler}
           />
