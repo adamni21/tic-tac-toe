@@ -2,7 +2,7 @@
 
 built with Svelte + TS + Vite
 
-Try it out at: https://creative-hummingbird-c9b8e6.netlify.app/
+Try it at: https://creative-hummingbird-c9b8e6.netlify.app/
 
 ### To run it locally
 
