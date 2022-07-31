@@ -2,7 +2,9 @@
 
 built with Svelte + TS + Vite
 
-### To Start It
+Try it out at: https://creative-hummingbird-c9b8e6.netlify.app/
+
+### To run it locally
 
 1. Download or git clone repository
 2. run `npm i`
@@ -23,9 +25,3 @@ The levels are:
 2. Continues best straight (row, column, or diagonal) that has the most own marks (x | o) and has no opponent marks.
 
 3. Completes straight if only one field is missing, else if opponent lacks only one field to win block it (cannot prevent binds), or else continues best straight.
-
-
-## In Work
-
-- Code testing
-- 4th Ai difficulty (unbeatable)
