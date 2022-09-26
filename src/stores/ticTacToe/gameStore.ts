@@ -11,7 +11,7 @@ const init: TicTacToeStore = {
   ...settingsInit,
   score: { x: 0, o: 0 },
   currentPlayer: "x",
-  currentBoard: getSquareArray(4, "_"),
+  currentBoard: getSquareArray(3, "_"),
   running: false,
   moveCount: 0,
   winner: null,
@@ -74,7 +74,7 @@ function createTicTacToe() {
 
   const resetGame = () => {
     const currentSettings = get(gameSettings);
-    
+
     set({
       ...structuredClone(init),
       ...currentSettings,
@@ -90,7 +90,7 @@ function createTicTacToe() {
 
       game.currentBoard = getSquareArray(settings.size || game.size, "_");
       game.currentPlayer = settings.startingPlayer || newStartingPlayer;
-      game.startingPlayer = game.currentPlayer
+      game.startingPlayer = game.currentPlayer;
       game.winner = null;
       game.moveCount = 0;
       game.running = true;
