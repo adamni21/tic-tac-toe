@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { AiDifficulty } from "../../utils/ticTacToe/types";
   import { ticTacToe } from "../../stores/ticTacToe/gameStore";
   import { gameSettings } from "../../stores/ticTacToe/settingsStore";
   import Button from "../UI/Button.svelte";
@@ -18,11 +19,17 @@
     else gameSettings.updateSettings({ [target.name]: target.value });
   };
 
-  const difficultyChangeHandler = ({ detail }: CustomEvent) => {
-    gameSettings.updateSettings({ aiDifficulty: detail.value });
+  const difficultyChangeHandler = ({
+    detail,
+  }: CustomEvent<{ value: number }>) => {
+    gameSettings.updateSettings({
+      aiDifficulty: detail.value.toString() as AiDifficulty,
+    });
   };
 
-  const boardSizeChangeHandler = ({ detail }: CustomEvent) => {
+  const boardSizeChangeHandler = ({
+    detail,
+  }: CustomEvent<{ value: number }>) => {
     gameSettings.updateSettings({ size: detail.value });
   };
 
